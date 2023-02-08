@@ -1,17 +1,11 @@
-CC 	 = gcc
-TARGET   = convert
-C_FILES  = $(wildcard *.c)
-OBJS 	 = $(patsubt %.c,%.o,$(C_FILES)) 
-C_FLAGS  = -g -Wall -Werror -pedantic-errors
-LD_FLAGS = 
+CC     = gcc
+C_FILE = $(wildcard *.c)
+TARGET = $(patsubst %.c,%,$(C_FILE))
+CFLAGS = -g -Wall -Werror -pedantic-errors
 
-.PHONY: all clean 
-all: $(TARGET) 
-$(TARGET) : $(OBJS) 
-	$(CC) $(OBJS) -o $(TARGET) $(LDFLAGS) 
-%.o: %.c %.h 
-	$(CC) $(CFLAGS) -c -o $@ $< 
-%.o: %.c
-	$(CC) $(CFLAGS) -c -o $@ $< 
-clean: 
-	rm -f $(OBJS) $(TARGET) $(TARGET).exe
+.PHONY: all clean
+all:
+	$(CC) $(CFLAGS) $(C_FILE) -o $(TARGET)
+clean:
+	rm -f $(TARGET) $(TARGET).exe
+
