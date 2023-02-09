@@ -3,12 +3,9 @@
 
 int main() {
 
-	// initiate input and array for binary conversion
-	int input; 
-	int bin[32];
+	// initiate input integer var
+	int input;
 
-	//putc('1', stdout); 
-	
 	//take in input 
 	printf("Enter an integer : ");
 	scanf("%d", &input); 
@@ -20,21 +17,33 @@ int main() {
 	printf("hexadecimal      : %x\n", input);
 
 	//convert var input to binary 
-	int index = 31; 
+	int i = 31;
+	int bin[32];
+	int temp;
+	int curr = 0; 
 
-	while(index >= 0){
+	while(i >= 0){
 		
-		bin[index] = input & 1;
-		index--; 
-		input >>= 1; 
+		temp = input >> i;
+
+		if(temp & 1) bin[curr] = 1; 
+		else bin[curr] = 0; 
+
+		i--;
+		curr++; 
+
 	}
 
 	//print with putc and for loop 
-	printf("binary           : ");
+	printf("binary           : "); 
 
-	for(int i = 0; i < 31; i++){
-		putc('%c', bin[i], stdout); 
-		//printf("%d", bin[i]);
+	for(int i = 0; i < 32; i++){
+		char c = bin[i] + '0'; 
+		putc(c, stdout); 
+		
+		if((i & 3) == 3){
+			printf(" ");
+		}
 	}
 	printf("\n");
 
